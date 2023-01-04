@@ -1,0 +1,26 @@
+---
+- name: Config DB servidor banco de dados 
+  hosts: db01
+
+  user: vagrant
+  become: yes
+  vars_files:
+    - vars/main.yml
+  vars:
+    - dbname: "db01"
+    - dbusername: "root"
+    - dbpassword: "parazerasre"
+  tasks:
+    - name: configurar host lab ansible
+      lineinfile: 
+        dest: /etc/hosts
+        state: present
+        line: "{{item}}"
+      with_items: 
+        - 192.168.2.2 control-node
+        - 192.168.2.3 app01
+        - 192.168.2.4 db01
+  roles:
+    - configuracao-default-so
+    - role: geerlingguy.mysql
+    

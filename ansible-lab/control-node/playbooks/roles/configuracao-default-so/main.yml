@@ -1,0 +1,4 @@
+- name:  Upgrade pacotes SO
+  yum:
+    name:  '*'
+    state: latest
